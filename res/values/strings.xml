@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Happy Days</string>
+    
+    <string name="time_join_character">:</string>
+    <string formatted="false" name="time_format">%02d%s%02d</string>
+    <string name="default_time">00:00</string>
+    
+    <string name="notification_time_summary">Notifications will occur at %s</string>
+    
+    <string formatted="false" name="notification_birthday_title">%s\'s birthday</string>
+    <string formatted="false" name="notification_anniversary_title">%s\'s anniversary</string>
+    
+    <plurals formatted="false" name="notification_birthday_message">
+        <item quantity="zero"></item>
+        <item quantity="one">They\'re one year old today!</item>
+        <item quantity="other">They\'re %d years old today!</item>
+    </plurals>
+        
+    <plurals formatted="false" name="notification_anniversary_message">
+        <item quantity="zero"></item>
+        <item quantity="one">One whole year!</item>
+        <item quantity="other">%d long years!</item>
+    </plurals>
 
 </resources>
