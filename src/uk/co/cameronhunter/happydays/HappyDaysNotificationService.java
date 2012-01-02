@@ -88,7 +88,7 @@ public class HappyDaysNotificationService extends IntentService {
 				return null;
 		}
 
-		return Pair.create( getString( title, contact ), getResources().getQuantityString( message, years ) );
+		return Pair.create( getString( title, contact ), getResources().getQuantityString( message, years, years ) );
 	}
 
 	private static boolean hasYear( String birthday ) {
