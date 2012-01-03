@@ -7,6 +7,7 @@
 	
 	<uk.co.cameronhunter.happydays.TimePreference 
 	    				android:key="time" 
-	    				android:title="@string/notification_time_title" />
+	    				android:title="@string/notification_time_title"
+	    				android:defaultValue="@string/default_time" />
     
 </PreferenceScreen>

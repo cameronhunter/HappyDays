@@ -46,6 +46,11 @@ public class MainActivity extends PreferenceActivity {
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+	
 	private void updateNotificationSummary( TimePreference notificationTime ) {
 		notificationTime.setSummary( getString( R.string.notification_time_summary, notificationTime.getValue() ) );
 	}
