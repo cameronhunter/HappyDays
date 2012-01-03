@@ -7,6 +7,10 @@
     <string formatted="false" name="time_format">%02d%s%02d</string>
     <string name="default_time">00:00</string>
     
+    <string name="enabled_title">Enable notifications</string>
+    <string name="enabled_summary">Show birthday and anniversary notifications</string>
+    
+    <string name="notification_time_title">Notification time</string>
     <string name="notification_time_summary">Notifications will occur at %s</string>
     
     <string formatted="false" name="notification_birthday_title">%s\'s birthday</string>
