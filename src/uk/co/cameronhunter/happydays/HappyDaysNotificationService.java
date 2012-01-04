@@ -1,5 +1,6 @@
 package uk.co.cameronhunter.happydays;
 
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,8 +13,11 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
 import android.util.Pair;
 
 public class HappyDaysNotificationService extends IntentService {
@@ -29,6 +33,7 @@ public class HappyDaysNotificationService extends IntentService {
 	protected void onHandleIntent( Intent intent ) {
 		Date now = new Date( System.currentTimeMillis() );
 		notifyBirthdays( getApplicationContext(), now.getDate(), now.getMonth() + 1, now.getYear() );
+		// notifyBirthdays( getApplicationContext(), 31, 10, 2012 - 1900 );
 	}
 
 	private void notifyBirthdays( Context context, int day, int month, int year ) {
@@ -56,10 +61,14 @@ public class HappyDaysNotificationService extends IntentService {
 
 					SimpleDateFormat format = hasYear ? FULL_DATE_FORMAT : NO_YEAR_DATE_FORMAT;
 					Date happyDate = format.parse( dateText );
-					
+
+					Uri contactUri = Uri.withAppendedPath( ContactsContract.Contacts.CONTENT_URI, id );
+
 					Pair<String, String> message = getNotificationMessage( contactName, type, hasYear ? (year - happyDate.getYear()) : 0 );
 
-					notification( Uri.withAppendedPath( ContactsContract.Contacts.CONTENT_URI, id ), message.hashCode(), message.first, message.second, context );
+					Notification notification = buildNotification( message.first, message.second, contactUri );
+
+					notify( notification, context );
 				}
 				catch ( ParseException ignore ) {}
 			}
@@ -95,17 +104,27 @@ public class HappyDaysNotificationService extends IntentService {
 		return !birthday.startsWith( "-" );
 	}
 
-	private void notification( Uri uri, int id, String title, String message, Context context ) {
+	private Notification buildNotification( String title, String message, Uri contactUri ) {
+		Notification.Builder builder = new Notification.Builder( this );
 
+		builder.setContentTitle( title ).setContentText( message );
+		builder.setSmallIcon( android.R.drawable.ic_menu_my_calendar );
+
+		InputStream photoDataStream = Contacts.openContactPhotoInputStream( getContentResolver(), contactUri );
+		if ( photoDataStream != null ) {
+			Bitmap thumbnail = BitmapFactory.decodeStream( photoDataStream );
+			builder.setLargeIcon( thumbnail );
+		}
+
+		builder.setContentIntent( PendingIntent.getActivity( getApplicationContext(), 0, new Intent( Intent.ACTION_VIEW, contactUri ), 0 ) );
+		builder.setWhen( System.currentTimeMillis() );
+
+		return builder.getNotification();
+	}
+
+	private void notify( Notification notification, Context context ) {
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService( NOTIFICATION_SERVICE );
-
-		Notification notification = new Notification( android.R.drawable.ic_menu_my_calendar, title, System.currentTimeMillis() );
-
-		Intent intent = new Intent( Intent.ACTION_VIEW, uri );
-
-		PendingIntent contentIntent = PendingIntent.getActivity( context, 0, intent, 0 );
-		notification.setLatestEventInfo( context, title, message, contentIntent );
-		notificationManager.notify( id, notification );
+		notificationManager.notify( notification.hashCode(), notification );
 	}
 
 }
