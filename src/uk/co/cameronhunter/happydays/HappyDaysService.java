@@ -69,7 +69,7 @@ public class HappyDaysService extends IntentService {
 					Notification notification = buildNotification( message.first, message.second, contactUri );
 					
 					NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService( NOTIFICATION_SERVICE );
-					notificationManager.notify( notification.hashCode(), notification );
+					notificationManager.notify( contactUri.hashCode(), notification );
 				}
 				catch ( ParseException ignore ) {}
 			}
