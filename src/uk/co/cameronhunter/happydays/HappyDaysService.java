@@ -26,7 +26,7 @@ public class HappyDaysService extends IntentService {
 	private static final SimpleDateFormat NO_YEAR_DATE_FORMAT = new SimpleDateFormat( "--MM-dd" );
 
 	public HappyDaysService() {
-		super( "Birthday Notification Service" );
+		super( "Happy Days Contact Service" );
 	}
 
 	@Override
@@ -67,8 +67,9 @@ public class HappyDaysService extends IntentService {
 					Pair<String, String> message = getNotificationMessage( contactName, type, hasYear ? (year - happyDate.getYear()) : 0 );
 
 					Notification notification = buildNotification( message.first, message.second, contactUri );
-
-					notify( notification, context );
+					
+					NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService( NOTIFICATION_SERVICE );
+					notificationManager.notify( notification.hashCode(), notification );
 				}
 				catch ( ParseException ignore ) {}
 			}
@@ -103,7 +104,7 @@ public class HappyDaysService extends IntentService {
 	private static boolean hasYear( String birthday ) {
 		return !birthday.startsWith( "-" );
 	}
-
+	
 	private Notification buildNotification( String title, String message, Uri contactUri ) {
 		Notification.Builder builder = new Notification.Builder( this );
 
@@ -120,11 +121,6 @@ public class HappyDaysService extends IntentService {
 		builder.setWhen( System.currentTimeMillis() );
 
 		return builder.getNotification();
-	}
-
-	private void notify( Notification notification, Context context ) {
-		NotificationManager notificationManager = (NotificationManager) context.getSystemService( NOTIFICATION_SERVICE );
-		notificationManager.notify( notification.hashCode(), notification );
 	}
 
 }
