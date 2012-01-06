@@ -38,28 +38,27 @@ public class TimePreference extends DialogPreference {
 	protected void onDialogClosed( boolean positiveResult ) {
 		if ( positiveResult ) {
 			if ( isPersistent() ) {
-				persistString( valueToString( Pair.create( timePicker.getCurrentHour(), timePicker.getCurrentMinute() ) ) );
+				persistString( valueToString( getContext(), Pair.create( timePicker.getCurrentHour(), timePicker.getCurrentMinute() ) ) );
 			}
 			callChangeListener( positiveResult );
 		}
 	}
 
 	public String getValue() {
-		return valueToString( getPersistedValue() );
+		return valueToString( getContext(), getPersistedValue() );
 	}
 
 	private Pair<Integer, Integer> getPersistedValue() {
-		return stringToValue( getPersistedString( getContext().getString( R.string.default_time ) ) );
+		return stringToValue( getContext(), getPersistedString( getContext().getString( R.string.default_time ) ) );
 	}
 	
-	private Pair<Integer, Integer> stringToValue( String value ) {
+	public static Pair<Integer, Integer> stringToValue( Context context, String value ) {
 		if ( value == null ) return null;
-		String[] parts = value.split( getContext().getString( R.string.time_join_character ) );
+		String[] parts = value.split( context.getString( R.string.time_join_character ) );
 		return Pair.create( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ) );
 	}
 
-	private String valueToString( Pair<Integer, Integer> value ) {
-		Context context = getContext();
+	public static String valueToString( Context context, Pair<Integer, Integer> value ) {
 		return context.getString( R.string.time_format, value.first, context.getString( R.string.time_join_character ), value.second );
 	}
 

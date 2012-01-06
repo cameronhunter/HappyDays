@@ -23,6 +23,10 @@ public class MainActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange( Preference preference, Object newValue ) {
 				updateNotificationSummary( notificationTime );
+				removeNotificationAlarm();
+				if ( enabled.isChecked() ) {
+					createNotificationAlarm();
+				}
 				return true;
 			}
 		} );
@@ -32,9 +36,9 @@ public class MainActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange( Preference preference, Object newValue ) {
 				if ( Boolean.TRUE.equals( newValue ) ) {
-					startService( getServiceIntent() );
+					createNotificationAlarm();
 				} else {
-					stopService( getServiceIntent() );
+					removeNotificationAlarm();
 				}
 				return true;
 			}
@@ -42,16 +46,22 @@ public class MainActivity extends PreferenceActivity {
 
 		updateNotificationSummary( notificationTime );
 		if ( enabled.isChecked() ) {
-			startService( getServiceIntent() );
+			createNotificationAlarm();
+		} else {
+			removeNotificationAlarm();
 		}
+	}
+
+	private void createNotificationAlarm() {
+		sendBroadcast( new Intent( getString( R.string.create_alarm_intent ) ) );
+	}
+	
+	private void removeNotificationAlarm() {
+		sendBroadcast( new Intent( getString( R.string.remove_alarm_intent ) ) );
 	}
 
 	private void updateNotificationSummary( TimePreference notificationTime ) {
 		notificationTime.setSummary( getString( R.string.notification_time_summary, notificationTime.getValue() ) );
-	}
-
-	private Intent getServiceIntent() {
-		return new Intent( getApplicationContext(), HappyDaysService.class );
 	}
 
 }

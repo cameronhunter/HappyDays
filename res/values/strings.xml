@@ -3,6 +3,9 @@
 
     <string name="app_name">Happy Days</string>
     
+   	<string name="create_alarm_intent">uk.co.cameronhunter.happydays.createAlarm</string>
+   	<string name="remove_alarm_intent">uk.co.cameronhunter.happydays.removeAlarm</string>
+        
     <string name="time_join_character">:</string>
     <string formatted="false" name="time_format">%02d%s%02d</string>
     <string name="default_time">00:00</string>
