@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import uk.co.cameronhunter.happydays.adapters.notificationBuilder.NotificationBuilder;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -106,8 +107,9 @@ public class HappyDaysService extends IntentService {
 	}
 	
 	private Notification buildNotification( String title, String message, Uri contactUri ) {
-		Notification.Builder builder = new Notification.Builder( this );
-
+		
+		NotificationBuilder builder = NotificationBuilder.create( this );
+		
 		builder.setContentTitle( title ).setContentText( message );
 		builder.setSmallIcon( android.R.drawable.ic_menu_my_calendar );
 
