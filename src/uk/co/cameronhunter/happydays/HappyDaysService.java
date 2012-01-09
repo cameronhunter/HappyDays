@@ -39,7 +39,7 @@ public class HappyDaysService extends IntentService {
 
 	private void notifyBirthdays( Context context, int day, int month, int year ) {
 		String dateFormat = String.format( "%02d-%02d", month, day );
-		
+
 		String[] selection = { ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.CommonDataKinds.Event.START_DATE, ContactsContract.CommonDataKinds.Event.CONTACT_ID,
 				ContactsContract.CommonDataKinds.Event.TYPE };
 		String where = ContactsContract.Data.MIMETYPE + "= ? " + "AND " + ContactsContract.CommonDataKinds.Event.TYPE + " IN (" + ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY + ", "
@@ -68,7 +68,7 @@ public class HappyDaysService extends IntentService {
 					Pair<String, String> message = getNotificationMessage( contactName, type, hasYear ? (year - happyDate.getYear()) : 0 );
 
 					Notification notification = buildNotification( message.first, message.second, contactUri );
-					
+
 					NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService( NOTIFICATION_SERVICE );
 					notificationManager.notify( contactUri.hashCode(), notification );
 				}
@@ -99,17 +99,20 @@ public class HappyDaysService extends IntentService {
 				return null;
 		}
 
-		return Pair.create( getString( title, contact ), getResources().getQuantityString( message, years, years ) );
+		String notificationTitle = getString( title, contact );
+		String notificationMessage = years == 0 ? null : getResources().getQuantityString( message, years, years );
+
+		return Pair.create( notificationTitle, notificationMessage );
 	}
 
 	private static boolean hasYear( String birthday ) {
 		return !birthday.startsWith( "-" );
 	}
-	
+
 	private Notification buildNotification( String title, String message, Uri contactUri ) {
-		
+
 		NotificationBuilder builder = NotificationBuilder.create( this );
-		
+
 		builder.setContentTitle( title ).setContentText( message );
 		builder.setSmallIcon( android.R.drawable.ic_menu_my_calendar );
 

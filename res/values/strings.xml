@@ -20,13 +20,11 @@
     <string formatted="false" name="notification_anniversary_title">%s\'s anniversary</string>
     
     <plurals formatted="false" name="notification_birthday_message">
-        <item quantity="zero"></item>
         <item quantity="one">They\'re one year old today!</item>
         <item quantity="other">They\'re %d years old today!</item>
     </plurals>
         
     <plurals formatted="false" name="notification_anniversary_message">
-        <item quantity="zero"></item>
         <item quantity="one">One whole year!</item>
         <item quantity="other">%d long years!</item>
     </plurals>
