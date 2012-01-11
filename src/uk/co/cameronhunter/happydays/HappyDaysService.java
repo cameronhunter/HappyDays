@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import uk.co.cameronhunter.happydays.adapters.notificationBuilder.NotificationBuilder;
+import uk.co.cameronhunter.adapters.notificationBuilder.NotificationBuilder;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -34,7 +34,7 @@ public class HappyDaysService extends IntentService {
 	protected void onHandleIntent( Intent intent ) {
 		Date now = new Date( System.currentTimeMillis() );
 		notifyBirthdays( getApplicationContext(), now.getDate(), now.getMonth() + 1, now.getYear() );
-//		 notifyBirthdays( getApplicationContext(), 31, 10, 2012 - 1900 );
+		// notifyBirthdays( getApplicationContext(), 31, 10, 2012 - 1900 );
 	}
 
 	private void notifyBirthdays( Context context, int day, int month, int year ) {
@@ -71,8 +71,7 @@ public class HappyDaysService extends IntentService {
 
 					NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService( NOTIFICATION_SERVICE );
 					notificationManager.notify( contactUri.hashCode(), notification );
-				}
-				catch ( ParseException ignore ) {}
+				} catch ( ParseException ignore ) {}
 			}
 		}
 
