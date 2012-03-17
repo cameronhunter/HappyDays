@@ -5,8 +5,7 @@
     <string name="enabled_summary">Zeigen sie Geburts- und Hochzeitstagsbenachrichtigungen</string>
     
     <string name="notification_time_title">Benachrichtigungszeit</string>
-    <string name="notification_time_summary">Benachrichtigungen werden
-    um %s geschickt</string>
+    <string name="notification_time_summary">Benachrichtigungen werden um %s geschickt</string>
     
     <string formatted="false" name="notification_birthday_title">%s hat Geburtstag</string>
     <string formatted="false" name="notification_anniversary_title">%ss Jahrestag</string>
