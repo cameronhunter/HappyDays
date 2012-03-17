@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="enabled_title">Benachrichtigungen aktivieren</string>
+    <string name="enabled_summary">Zeigen sie geburts-und hochzeitstage benachrichtigungen</string>
+    
+    <string name="notification_time_title">Benachrichtigung zeit</string>
+    <string name="notification_time_summary">Benachrichtigungen werden um %s</string>
+    
+    <string formatted="false" name="notification_birthday_title">%s hat geburtstag</string>
+    <string formatted="false" name="notification_anniversary_title">%ss jubiläum</string>
+    
+    <plurals formatted="false" name="notification_birthday_message">
+        <item quantity="one">Sie sind heute ein jahr alt!</item>
+        <item quantity="other">Sie sind heute %d jahre alt!</item>
+    </plurals>
+        
+    <plurals formatted="false" name="notification_anniversary_message">
+        <item quantity="one">Ein ganzes jahr!</item>
+        <item quantity="other">%d lange jahre!</item>
+    </plurals>
+
+</resources>
