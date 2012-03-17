@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="enabled_title">Activar notificaciones</string>
+    <string name="enabled_summary">Mostrar las notificaciones de cumpleaños y aniversario</string>
+    
+    <string name="notification_time_title">Notificación de tiempo</string>
+    <string name="notification_time_summary">Notificaciones se producirá a las %s</string>
+    
+    <string formatted="false" name="notification_birthday_title">Cumpleaños de %s</string>
+    <string formatted="false" name="notification_anniversary_title">Aniversario de %s</string>
+    
+    <plurals formatted="false" name="notification_birthday_message">
+        <item quantity="one">Son de un año hoy!</item>
+        <item quantity="other">Son %d años de edad hoy en día!</item>
+    </plurals>
+        
+    <plurals formatted="false" name="notification_anniversary_message">
+        <item quantity="one">Un año entero!</item>
+        <item quantity="other">%d largos años!</item>
+    </plurals>
+
+</resources>
