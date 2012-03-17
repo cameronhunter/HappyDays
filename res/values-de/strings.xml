@@ -2,22 +2,27 @@
 <resources>
 
     <string name="enabled_title">Benachrichtigungen aktivieren</string>
-    <string name="enabled_summary">Zeigen sie geburts-und hochzeitstage benachrichtigungen</string>
+    <string name="enabled_summary">Zeigen sie Geburts- und Hochzeitstagsbenachrichtigungen</string>
     
-    <string name="notification_time_title">Benachrichtigung zeit</string>
-    <string name="notification_time_summary">Benachrichtigungen werden um %s</string>
+    <string name="notification_time_title">Benachrichtigungszeit</string>
+    <string name="notification_time_summary">Benachrichtigungen werden
+    um %s geschickt</string>
     
-    <string formatted="false" name="notification_birthday_title">%s hat geburtstag</string>
-    <string formatted="false" name="notification_anniversary_title">%ss jubiläum</string>
+    <string formatted="false" name="notification_birthday_title">%s hat Geburtstag</string>
+    <string formatted="false" name="notification_anniversary_title">%ss Jahrestag</string>
     
     <plurals formatted="false" name="notification_birthday_message">
-        <item quantity="one">Sie sind heute ein jahr alt!</item>
+        <!-- If you have their name: -->
+        <item quantity="one">%s ist heute ein Jahr alt!</item>
+    <!-- If you know their sex, then choose Er (male) or Sie (female): -->
+        <!-- <item quantity="one">Er/Sie ist heute ein Jahr alt!</item> -->
+	<!-- Same goes for plural: -->
         <item quantity="other">Sie sind heute %d jahre alt!</item>
     </plurals>
         
     <plurals formatted="false" name="notification_anniversary_message">
-        <item quantity="one">Ein ganzes jahr!</item>
-        <item quantity="other">%d lange jahre!</item>
+        <item quantity="one">Ein ganzes Jahr!</item>
+        <item quantity="other">%d lange Jahre!</item>
     </plurals>
 
 </resources>
