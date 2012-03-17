@@ -12,12 +12,8 @@
     <string formatted="false" name="notification_anniversary_title">%ss Jahrestag</string>
     
     <plurals formatted="false" name="notification_birthday_message">
-        <!-- If you have their name: -->
-        <item quantity="one">%s ist heute ein Jahr alt!</item>
-    <!-- If you know their sex, then choose Er (male) or Sie (female): -->
-        <!-- <item quantity="one">Er/Sie ist heute ein Jahr alt!</item> -->
-	<!-- Same goes for plural: -->
-        <item quantity="other">Sie sind heute %d jahre alt!</item>
+        <item quantity="one">Ein Jahr alt!</item>
+        <item quantity="other">%d jahre alt!</item>
     </plurals>
         
     <plurals formatted="false" name="notification_anniversary_message">
