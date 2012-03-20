@@ -11,8 +11,8 @@
     <string formatted="false" name="notification_anniversary_title">L\'anniversaire de %s</string>
     
     <plurals formatted="false" name="notification_birthday_message">
-        <item quantity="one">Ils ont une année aujourd\'hui!</item>
-        <item quantity="other">Ils ont %d ans aujourd\'hui!</item>
+        <item quantity="one">Une année aujourd\'hui!</item>
+        <item quantity="other">%d ans aujourd\'hui!</item>
     </plurals>
         
     <plurals formatted="false" name="notification_anniversary_message">
