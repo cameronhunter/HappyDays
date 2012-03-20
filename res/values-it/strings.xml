@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="enabled_title">Enable notifications</string>
-    <string name="enabled_summary">Show birthday and anniversary notifications</string>
+    <string name="enabled_title">Abilita le notifiche</string>
+    <string name="enabled_summary">Notificami compleanni e anniversari</string>
     
-    <string name="notification_time_title">Notification time</string>
-    <string name="notification_time_summary">Notifications will occur at %s</string>
+    <string name="notification_time_title">Orario delle notifiche</string>
+    <string name="notification_time_summary">Le notifiche avverranno alle %s</string>
     
-    <string formatted="false" name="notification_birthday_title">%s\'s birthday</string>
-    <string formatted="false" name="notification_anniversary_title">%s\'s anniversary</string>
+    <string formatted="false" name="notification_birthday_title">Compleanno di %s</string>
+    <string formatted="false" name="notification_anniversary_title">Anniversario di %s</string>
     
     <plurals formatted="false" name="notification_birthday_message">
-        <item quantity="one">They\'re one year old today!</item>
-        <item quantity="other">They\'re %d years old today!</item>
+        <item quantity="one">Oggi compie un anno!</item>
+        <item quantity="other">Oggi compie %d anni!</item>
     </plurals>
         
     <plurals formatted="false" name="notification_anniversary_message">
-        <item quantity="one">One whole year!</item>
-        <item quantity="other">%d long years!</item>
+        <item quantity="one">Un anno intero!</item>
+        <item quantity="other">%d lunghissimi anni!</item>
     </plurals>
 
 </resources>
