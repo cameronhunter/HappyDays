@@ -1,4 +1,4 @@
-package uk.co.cameronhunter.happydays;
+package uk.co.cameronhunter.happydays.receivers;
 
 import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.app.AlarmManager.RTC;
@@ -6,6 +6,8 @@ import static android.content.Intent.ACTION_BOOT_COMPLETED;
 
 import org.joda.time.DateTime;
 
+import uk.co.cameronhunter.happydays.R;
+import uk.co.cameronhunter.happydays.TimePreference;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -15,19 +17,19 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Pair;
 
-public class HappyDaysReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive( Context context, Intent intent ) {
-
 		String action = intent.getAction();
 
 		boolean createAlarmIntent = context.getString( R.string.create_alarm_intent ).equals( action ) || ACTION_BOOT_COMPLETED.equals( action );
 		boolean removeAlarmIntent = context.getString( R.string.remove_alarm_intent ).equals( action );
 
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService( Context.ALARM_SERVICE );
-		PendingIntent birthdayNotifications = PendingIntent.getService( context, 0, new Intent( context, HappyDaysService.class ), PendingIntent.FLAG_CANCEL_CURRENT );
-
+		
+		PendingIntent birthdayNotifications = PendingIntent.getBroadcast( context, 0, new Intent( context, NotificationReceiver.class ), PendingIntent.FLAG_CANCEL_CURRENT );
+		
 		if ( createAlarmIntent ) {
 			createAlarm( alarmManager, birthdayNotifications, context );
 			return;
@@ -43,11 +45,11 @@ public class HappyDaysReceiver extends BroadcastReceiver {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences( context );
 		Pair<Integer, Integer> time = TimePreference.stringToValue( context, preferences.getString( "time", context.getString( R.string.default_time ) ) );
 
-		DateTime now = new DateTime( System.currentTimeMillis() );
-		now.withHourOfDay( time.first.intValue() );
-		now.withMinuteOfHour( time.second.intValue() );
+		DateTime notificationTime = new DateTime( System.currentTimeMillis() );
+		notificationTime.withHourOfDay( time.first.intValue() );
+		notificationTime.withMinuteOfHour( time.second.intValue() );
 
-		alarmManager.setRepeating( RTC, now.getMillis(), INTERVAL_DAY, birthdayNotifications );
+		alarmManager.setRepeating( RTC, notificationTime.getMillis(), INTERVAL_DAY, birthdayNotifications );
 	}
 
 }
