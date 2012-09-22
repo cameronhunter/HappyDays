@@ -4,7 +4,7 @@ import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.app.AlarmManager.RTC;
 import static android.content.Intent.ACTION_BOOT_COMPLETED;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -43,11 +43,11 @@ public class HappyDaysReceiver extends BroadcastReceiver {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences( context );
 		Pair<Integer, Integer> time = TimePreference.stringToValue( context, preferences.getString( "time", context.getString( R.string.default_time ) ) );
 
-		Date now = new Date( System.currentTimeMillis() );
-		now.setHours( time.first.intValue() );
-		now.setMinutes( time.second.intValue() );
+		DateTime now = new DateTime( System.currentTimeMillis() );
+		now.withHourOfDay( time.first.intValue() );
+		now.withMinuteOfHour( time.second.intValue() );
 
-		alarmManager.setRepeating( RTC, now.getTime(), INTERVAL_DAY, birthdayNotifications );
+		alarmManager.setRepeating( RTC, now.getMillis(), INTERVAL_DAY, birthdayNotifications );
 	}
 
 }

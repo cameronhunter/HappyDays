@@ -1,9 +1,10 @@
 package uk.co.cameronhunter.happydays;
 
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -23,8 +24,8 @@ import android.util.Pair;
 
 public class HappyDaysService extends IntentService {
 
-    private static final SimpleDateFormat FULL_DATE_FORMAT = new SimpleDateFormat( "yyyy-MM-dd" );
-    private static final SimpleDateFormat NO_YEAR_DATE_FORMAT = new SimpleDateFormat( "--MM-dd" );
+    private static final DateTimeFormatter FULL_DATE_FORMAT = DateTimeFormat.forPattern( "yyyy-MM-dd" );
+    private static final DateTimeFormatter NO_YEAR_DATE_FORMAT = DateTimeFormat.forPattern( "--MM-dd" );
 
     public HappyDaysService() {
         super( "Happy Days Contact Service" );
@@ -32,8 +33,8 @@ public class HappyDaysService extends IntentService {
 
     @Override
     protected void onHandleIntent( Intent intent ) {
-        Date now = new Date( System.currentTimeMillis() );
-        notifyBirthdays( getApplicationContext(), now.getDate(), now.getMonth() + 1, now.getYear() );
+        DateTime now = new DateTime( System.currentTimeMillis() );
+        notifyBirthdays( getApplicationContext(), now.getDayOfMonth(), now.getMonthOfYear(), now.getYear() );
         // notifyBirthdays( getApplicationContext(), 31, 10, 2012 - 1900 );
     }
 
@@ -50,26 +51,24 @@ public class HappyDaysService extends IntentService {
 
         if ( cursor.getCount() > 0 ) {
             while ( cursor.moveToNext() ) {
-                try {
-                    String contactName = cursor.getString( 0 );
-                    String dateText = cursor.getString( 1 );
-                    String id = cursor.getString( 2 );
-                    int type = cursor.getInt( 3 );
+                String contactName = cursor.getString( 0 );
+                String dateText = cursor.getString( 1 );
+                String id = cursor.getString( 2 );
+                int type = cursor.getInt( 3 );
 
-                    boolean hasYear = hasYear( dateText );
+                boolean hasYear = hasYear( dateText );
 
-                    SimpleDateFormat format = hasYear ? FULL_DATE_FORMAT : NO_YEAR_DATE_FORMAT;
-                    Date happyDate = format.parse( dateText );
+                DateTimeFormatter format = hasYear ? FULL_DATE_FORMAT : NO_YEAR_DATE_FORMAT;
+                DateTime happyDate = DateTime.parse( dateText, format );
 
-                    Uri contactUri = Uri.withAppendedPath( ContactsContract.Contacts.CONTENT_URI, id );
+                Uri contactUri = Uri.withAppendedPath( ContactsContract.Contacts.CONTENT_URI, id );
 
-                    Pair<String, String> message = getNotificationMessage( contactName, type, hasYear ? (year - happyDate.getYear()) : 0 );
+                Pair<String, String> message = getNotificationMessage( contactName, type, hasYear ? (year - happyDate.getYear()) : 0 );
 
-                    Notification notification = buildNotification( message.first, message.second, contactUri );
+                Notification notification = buildNotification( message.first, message.second, contactUri );
 
-                    NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService( NOTIFICATION_SERVICE );
-                    notificationManager.notify( contactUri.hashCode(), notification );
-                } catch ( ParseException ignore ) {}
+                NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService( NOTIFICATION_SERVICE );
+                notificationManager.notify( contactUri.hashCode(), notification );
             }
         }
 
