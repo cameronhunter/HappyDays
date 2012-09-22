@@ -2,7 +2,10 @@ package uk.co.cameronhunter.happydays.receivers;
 
 import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.app.AlarmManager.RTC;
+import static android.content.Context.ALARM_SERVICE;
 import static android.content.Intent.ACTION_BOOT_COMPLETED;
+import static android.content.Intent.ACTION_DELETE;
+import static android.content.Intent.ACTION_INSERT;
 
 import org.joda.time.DateTime;
 
@@ -23,10 +26,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 	public void onReceive( Context context, Intent intent ) {
 		String action = intent.getAction();
 
-		boolean createAlarmIntent = context.getString( R.string.create_alarm_intent ).equals( action ) || ACTION_BOOT_COMPLETED.equals( action );
-		boolean removeAlarmIntent = context.getString( R.string.remove_alarm_intent ).equals( action );
+		boolean createAlarmIntent = ACTION_INSERT.equals( action ) || ACTION_BOOT_COMPLETED.equals( action );
+		boolean removeAlarmIntent = ACTION_DELETE.equals( action );
 
-		AlarmManager alarmManager = (AlarmManager) context.getSystemService( Context.ALARM_SERVICE );
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService( ALARM_SERVICE );
 		
 		PendingIntent birthdayNotifications = PendingIntent.getBroadcast( context, 0, new Intent( context, NotificationReceiver.class ), PendingIntent.FLAG_CANCEL_CURRENT );
 		

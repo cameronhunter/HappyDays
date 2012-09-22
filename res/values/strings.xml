@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="app_name">Happy Days</string>
+    <string name="app_name" tools:ignore="MissingTranslation">Happy Days</string>
     
-   	<string name="create_alarm_intent">uk.co.cameronhunter.happydays.createAlarm</string>
-   	<string name="remove_alarm_intent">uk.co.cameronhunter.happydays.removeAlarm</string>
-        
-    <string name="time_join_character">:</string>
-    <string formatted="false" name="time_format">%02d%s%02d</string>
-    <string name="default_time">00:00</string>
+    <string name="time_join_character" tools:ignore="MissingTranslation">:</string>
+    <string formatted="false" name="time_format" tools:ignore="MissingTranslation">%02d%s%02d</string>
+    <string name="default_time" tools:ignore="MissingTranslation">00:00</string>
     
     <string name="enabled_title">Enable notifications</string>
     <string name="enabled_summary">Show birthday and anniversary notifications</string>
